@@ -1,0 +1,5 @@
+{
+  "environment": "this is local",
+  "first": "I probably need the config",
+  "other": "Utilising Config for other states"
+}

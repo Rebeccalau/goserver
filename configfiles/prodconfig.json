@@ -1,0 +1,5 @@
+{
+  "environment": "this is production",
+  "first": "production config value",
+  "other": "other production config value"
+}
