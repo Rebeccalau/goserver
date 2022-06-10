@@ -8,6 +8,10 @@ import (
 	"testing"
 )
 
+func TestStateMachine(t *testing.T) {
+	suite.Run(t, new(TestStateMachineSuite))
+}
+
 type TestStateMachineSuite struct {
 	suite.Suite
 	TestMachine StateMachine
@@ -28,8 +32,4 @@ func (suite *TestStateMachineSuite) TestProcessStateChange() {
 	result := suite.TestMachine.ProcessStateChange("optionalsecond")
 
 	assert.Equal(suite.T(), "Success", result)
-}
-
-func TestNewStateMachine(t *testing.T) {
-	suite.Run(t, new(TestStateMachineSuite))
 }
