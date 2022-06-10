@@ -1,1 +1,35 @@
 package state
+
+import (
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/suite"
+	"start_server/config"
+	"start_server/constants"
+	"testing"
+)
+
+type TestStateMachineSuite struct {
+	suite.Suite
+	TestMachine StateMachine
+}
+
+func (suite *TestStateMachineSuite) SetupTest() {
+	config := config.Configuration{}
+	statemap := map[string]State{
+		constants.First:          {Name: constants.First, availableStateChanges: []string{constants.OptionalSecond, constants.Third}},
+		constants.OptionalSecond: {Name: constants.OptionalSecond, availableStateChanges: []string{constants.Third}},
+		constants.Third:          {Name: constants.Third, availableStateChanges: []string{constants.First}},
+	}
+
+	suite.TestMachine = StateMachine{CurrentState: statemap[constants.First], AllStates: statemap, config: config}
+}
+
+func (suite *TestStateMachineSuite) TestProcessStateChange() {
+	result := suite.TestMachine.ProcessStateChange("optionalsecond")
+
+	assert.Equal(suite.T(), "Success", result)
+}
+
+func TestNewStateMachine(t *testing.T) {
+	suite.Run(t, new(TestStateMachineSuite))
+}

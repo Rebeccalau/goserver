@@ -61,6 +61,10 @@ func headers(_ http.ResponseWriter, request *http.Request) {
 
 func main() {
 	arguments := os.Args[1]
+	StartHttpServer(arguments)
+}
+
+func StartHttpServer(arguments string) {
 	config := myconfig.NewConfiguration(arguments)
 	stateMachine := state.NewStateMachine(config)
 	stateRoute := &StateHandler{Config: config, StateMachine: stateMachine}
