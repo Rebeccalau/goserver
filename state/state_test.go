@@ -29,8 +29,10 @@ func (suite *TestStateSuite) TestCheckChangedState() {
 		{input: "3", expected: true},
 	}
 
+	checker := &Checker{}
+
 	for _, testCase := range testCases {
-		result := suite.state.CheckChange(testCase.input)
+		result := checker.CheckChange(testCase.input, suite.state)
 
 		assert.Equal(suite.T(), testCase.expected, result)
 	}
