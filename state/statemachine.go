@@ -11,11 +11,12 @@ type StateMachine struct {
 	CurrentState State
 	AllStates    map[string]State
 	config       config.Configuration
+	Checker      ICheck
 }
 
 func (StateMachine *StateMachine) ProcessStateChange(requestType string) string {
 	fmt.Println("Requesting statechange to ", requestType)
-	allowedChange := StateMachine.CurrentState.CheckChange(requestType)
+	allowedChange := StateMachine.Checker.CheckChange(requestType, StateMachine.CurrentState)
 	fmt.Println("Checked if allowed ", allowedChange)
 
 	if allowedChange == true {
@@ -37,5 +38,5 @@ func NewStateMachine(config config.Configuration) StateMachine {
 		constants.Fifth:          {Name: constants.Fifth, availableStateChanges: []string{constants.First}},
 	}
 
-	return StateMachine{CurrentState: statemap[constants.First], AllStates: statemap, config: config}
+	return StateMachine{CurrentState: statemap[constants.First], AllStates: statemap, config: config, Checker: &Checker{}}
 }

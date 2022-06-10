@@ -17,6 +17,12 @@ type TestStateMachineSuite struct {
 	TestMachine StateMachine
 }
 
+type MockChecker struct{}
+
+func (m *MockChecker) CheckChange(nextState string, state State) bool {
+	return true
+}
+
 func (suite *TestStateMachineSuite) SetupTest() {
 	config := config.Configuration{}
 	statemap := map[string]State{
@@ -25,7 +31,7 @@ func (suite *TestStateMachineSuite) SetupTest() {
 		constants.Third:          {Name: constants.Third, availableStateChanges: []string{constants.First}},
 	}
 
-	suite.TestMachine = StateMachine{CurrentState: statemap[constants.First], AllStates: statemap, config: config}
+	suite.TestMachine = StateMachine{CurrentState: statemap[constants.First], AllStates: statemap, config: config, Checker: &MockChecker{}}
 }
 
 func (suite *TestStateMachineSuite) TestProcessStateChange() {
