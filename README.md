@@ -12,11 +12,11 @@ A Basic websocket implementation with a client reading and receiving a response 
 
 Start server
 ```
-go run socket_server.go  
+go run socket_implementation/server/socket_server.go local
 ```
 Send a Client request 
 ```
-go run socket_client.go  
+go run socket_implementation/client/socket_client.go local
 ```
 
 #### Http Server
@@ -45,3 +45,7 @@ third
 optionalfourth
 fifth
 ```
+
+## Unit Tests
+[Testify](https://github.com/stretchr/testify)
+
